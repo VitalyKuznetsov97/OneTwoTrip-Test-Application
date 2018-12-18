@@ -1,9 +1,10 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">OneTwoTripTestApplication</string>
+    <string name="button_refresh_results">Refresh Results</string>
+    <string name="text_view_hotels">Hotels ▾</string>
+    <string name="text_view_flights">Flights ▾</string>
 </resources>
