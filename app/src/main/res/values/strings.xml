@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">OneTwoTripTestApplication</string>
     <string name="button_refresh_results">Refresh Results</string>
-    <string name="text_view_hotels">Hotels ▾</string>
-    <string name="text_view_flights">Flights ▾</string>
+    <string name="text_view_hotels">Hotels</string>
+    <string name="text_view_companies">Companies</string>
+    <string name="text_view_destination">Destination displayed here</string>
+    <string name="text_view_company">Company information displayed here</string>
+    <string name="text_view_price">00000.0</string>
+    <string name="text_view_go_back">Go back</string>
+    <string name="text_view_filter_name">Filter</string>
+    <string name="text_view_option">Option displayed here</string>
 </resources>

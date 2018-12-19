@@ -1,6 +1,9 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation;
 
-import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,25 +12,14 @@ import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class MainActivity extends AppCompatActivity {
+public class ChooseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_choose);
 
-        findViewById(R.id.text_view_hotels).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent();
-            }
-        });
-
-        findViewById(R.id.text_view_companies).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.text_view_go_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent();
@@ -38,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void intent(){
-        Intent intent = new Intent(this, ChooseActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     private void setRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_results);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_choose);
         RecyclerViewAdapter adapter;
         recyclerView.setHasFixedSize(false);
 
@@ -54,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 10; i++)
             messagePreviewArrayList.add(new ItemPreview());
 
-        adapter = new RecyclerViewAdapter(messagePreviewArrayList, R.layout.view_holder_result);
+        adapter = new RecyclerViewAdapter(messagePreviewArrayList, R.layout.view_holder_choose);
         recyclerView.setAdapter(adapter);
     }
 }
