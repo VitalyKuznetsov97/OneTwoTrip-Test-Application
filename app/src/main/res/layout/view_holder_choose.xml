@@ -4,36 +4,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    android:background="@android:color/transparent"
     android:id="@+id/constraint_main"
 
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="56dp">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/text_view_option"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_destination"
+        android:id="@+id/text_view_option"
         style="@style/TextView"
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:padding="8dp"
+        android:padding="16dp"
         android:text="@string/text_view_option"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/checkbox"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text_view_destination"
+        app:layout_constraintLeft_toRightOf="@id/checkbox"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBackground"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

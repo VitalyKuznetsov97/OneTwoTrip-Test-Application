@@ -1,4 +1,4 @@
-package com.vitaly_kuznetsov.onetwotriptestapplication.presentation;
+package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.adapter;
 
 import android.view.View;
 

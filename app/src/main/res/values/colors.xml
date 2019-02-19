@@ -11,4 +11,5 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="colorAccent">#FAFAFA</color>
+    <color name="colorBackground">#40f0f0f0</color>
 </resources>

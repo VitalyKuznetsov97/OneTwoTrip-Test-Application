@@ -5,46 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/constraint_main"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginLeft="8dp"
+    android:background="@color/colorAccent"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".presentation.MainActivity">
-
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-
-        android:id="@+id/guideline_0"
-        android:orientation="vertical"
-
-        app:layout_constraintGuide_percent="0.08"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-
-        android:id="@+id/guideline_1"
-        android:orientation="vertical"
-
-        app:layout_constraintGuide_percent="0.92"/>
+    tools:context=".presentation.ui.activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintVertical_weight="0.1"
+        android:layout_height="48dp"
 
         android:id="@+id/constraint_filters"
         android:layout_margin="16dp"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_refresh">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="0dp"
@@ -67,7 +42,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/colorBackground"
             app:layout_constraintRight_toLeftOf="@id/text_view_companies"
             app:layout_constraintLeft_toRightOf="@id/text_view_hotels"/>
 
@@ -89,37 +64,48 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintVertical_weight="0.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        app:layout_constraintDimensionRatio="3.6:1"
-        android:layout_margin="16dp"
-        android:textAllCaps="false"
-
+        android:fontFamily="@font/roboto_regular"
         android:id="@+id/button_refresh"
         android:text="@string/button_refresh_results"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraint_filters"
-        app:layout_constraintBottom_toTopOf="@id/recycler_view_results"/>
+        app:layout_constraintBottom_toTopOf="@id/recycler_view"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="0.8"
+        android:background="@color/colorBackground"
 
-        android:id="@+id/recycler_view_results"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:id="@+id/recycler_view"
+        android:layout_marginTop="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
 
         app:layout_constraintTop_toBottomOf="@id/button_refresh"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@id/guideline_1"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_0"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@drawable/shade"
+        app:layout_constraintTop_toTopOf="@id/recycler_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@drawable/shade_upside_down"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

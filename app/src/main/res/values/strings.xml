@@ -3,10 +3,12 @@
     <string name="button_refresh_results">Refresh Results</string>
     <string name="text_view_hotels">Hotels</string>
     <string name="text_view_companies">Companies</string>
-    <string name="text_view_destination">Destination displayed here</string>
-    <string name="text_view_company">Company information displayed here</string>
+    <string name="text_view_destination_hotel">Hotel displayed here</string>
+    <string name="text_view_destination_companies">Company options are displayed here</string>
     <string name="text_view_price">00000.0</string>
     <string name="text_view_go_back">Go back</string>
     <string name="text_view_filter_name">Filter</string>
+    <string name="button_clear_all_filters">Clear all</string>
     <string name="text_view_option">Option displayed here</string>
+    <string name="text_view_error">Error displayed here</string>
 </resources>
