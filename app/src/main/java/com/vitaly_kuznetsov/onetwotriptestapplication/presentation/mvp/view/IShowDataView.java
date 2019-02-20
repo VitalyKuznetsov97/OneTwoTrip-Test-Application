@@ -1,14 +1,12 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view;
 
 import com.arellomobile.mvp.MvpView;
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 
 import java.util.ArrayList;
-
-import io.reactivex.Observable;
 
 /**
  * An Interface to show that the view is currently not available, due to some asynchronous work,
@@ -31,7 +29,7 @@ public interface IShowDataView extends MvpView {
     /**
      * Render data.
      */
-    void showData(ArrayList data);
+    void showData(ArrayList<IModel> data);
 
     /**
      * Show an error message
@@ -39,10 +37,4 @@ public interface IShowDataView extends MvpView {
      */
     void showError(ErrorModel errorModel);
 
-
-    /**
-     * Subscribe to refresh button.
-     */
-    @StateStrategyType(AddToEndSingleStrategy.class)
-    Observable<Void> onRefreshButtonClicked();
 }

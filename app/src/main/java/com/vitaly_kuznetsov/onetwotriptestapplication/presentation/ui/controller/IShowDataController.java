@@ -3,6 +3,7 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.controlle
 import android.content.Context;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public interface IShowDataController {
     /**
      * Method that shows a dataSet in a layoutModel.
      */
-    void showData(ArrayList data);
+    void showData(ArrayList<IModel> data);
 
     /**
      * Methods that show a Loading Process.

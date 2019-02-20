@@ -4,17 +4,16 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model;
  * Class that represents destination in the presentation layer.
  */
 
-public class DestinationModel {
+public class DestinationModel implements IModel {
 
-    private final int destinationId;
-
-    public DestinationModel (int destinationId) {
-        this.destinationId = destinationId;
-    }
-
+    private int destinationId;
     private String hotelName;
     private int amountOfOptions;
     private int price;
+
+    public int getDestinationId() { return destinationId; }
+
+    public void setDestinationId(int destinationId) { this.destinationId = destinationId; }
 
     public String getHotelName() { return hotelName; }
 

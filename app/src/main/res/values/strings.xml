@@ -4,7 +4,7 @@
     <string name="text_view_hotels">Hotels</string>
     <string name="text_view_companies">Companies</string>
     <string name="text_view_destination_hotel">Hotel displayed here</string>
-    <string name="text_view_destination_companies">Company options are displayed here</string>
+    <string name="text_view_destination_flights">Flight options are displayed here</string>
     <string name="text_view_price">00000.0</string>
     <string name="text_view_go_back">Go back</string>
     <string name="text_view_filter_name">Filter</string>

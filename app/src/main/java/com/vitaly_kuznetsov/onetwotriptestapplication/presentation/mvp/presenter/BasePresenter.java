@@ -5,15 +5,17 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 import io.reactivex.disposables.Disposable;
 
-class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
+abstract class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
 
     private ArrayList<Disposable> disposables = new ArrayList<>();
 
-    void unsubscribeOnDestroy(@NonNull Disposable disposable) {
-        disposables.add(disposable);
+    void disposeOnDestroy(Disposable disposable) {
+        if (disposable!=null) disposables.add(disposable);
+    }
+    void removeFromDisposables(Disposable disposable){
+        if (disposable!=null) disposables.remove(disposable);
     }
 
     @Override

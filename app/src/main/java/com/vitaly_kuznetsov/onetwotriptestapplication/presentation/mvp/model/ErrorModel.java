@@ -3,10 +3,11 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model;
 /**
  * Class that represents an errorMessage in the presentation layer.
  */
-public class ErrorModel {
+public class ErrorModel implements IModel{
 
-    private final String errorMessage;
+    private String errorMessage;
 
-    public ErrorModel(String errorMessage) { this.errorMessage = errorMessage; }
+    public String getErrorMessage() { return errorMessage; }
 
+    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
 }

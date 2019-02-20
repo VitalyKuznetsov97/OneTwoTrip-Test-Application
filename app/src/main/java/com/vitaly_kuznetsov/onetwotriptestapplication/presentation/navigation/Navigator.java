@@ -20,8 +20,8 @@ public class Navigator {
      *
      * @param context A Context needed to open the destiny activity.
      */
-    public static void navigateToFilterActivity(Context context, String intentFlag) {
-        if (context != null && intentFlag != null) {
+    public static void navigateToFilterActivity(Context context, int intentFlag) {
+        if (context != null) {
             Intent intentToLaunch = new Intent(context, FilterActivity.class);
             intentToLaunch.putExtra(INTENT_FLAG_NAME, intentFlag);
             context.startActivity(intentToLaunch);

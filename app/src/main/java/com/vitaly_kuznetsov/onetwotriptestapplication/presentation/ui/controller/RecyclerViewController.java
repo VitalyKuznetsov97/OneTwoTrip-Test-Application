@@ -6,6 +6,7 @@ import android.widget.ProgressBar;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.adapter.RecyclerViewAdapter;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.custom_view.CustomProgressBar;
 
@@ -18,19 +19,22 @@ import butterknife.ButterKnife;
 
 public class RecyclerViewController implements IShowDataController {
 
-    @BindView(R.id.recycler_view) private RecyclerView recyclerView;
-    @BindView(R.id.constraint_main) private ConstraintLayout constraintLayout;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.constraint_main) ConstraintLayout constraintLayout;
 
     private ProgressBar progressBar;
 
+    private RecyclerViewAdapter adapter;
+
     public RecyclerViewController(Activity activity) {
-        ButterKnife.bind(activity);
-        recyclerView.setAdapter(new RecyclerViewAdapter());
+        ButterKnife.bind(this, activity);
+        adapter = new RecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void showData(ArrayList data) {
-
+    public void showData(ArrayList<IModel> data) {
+        adapter.showData(data);
     }
 
     @Override
@@ -42,14 +46,12 @@ public class RecyclerViewController implements IShowDataController {
 
     @Override
     public void hideLoading() {
-        if (progressBar != null)
-            constraintLayout.removeView(progressBar);
-
+        if (progressBar != null) constraintLayout.removeView(progressBar);
         recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError(ErrorModel errorModel) {
-
+        adapter.showError(errorModel);
     }
 }
