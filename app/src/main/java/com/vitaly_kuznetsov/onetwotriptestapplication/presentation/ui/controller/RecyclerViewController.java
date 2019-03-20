@@ -13,6 +13,7 @@ import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.custom_vie
 import java.util.ArrayList;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,13 +29,16 @@ public class RecyclerViewController implements IShowDataController {
 
     public RecyclerViewController(Activity activity) {
         ButterKnife.bind(this, activity);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void showData(ArrayList<IModel> data) {
-        adapter.showData(data);
+    public void showData(IModel model) {
+        adapter.showData(model);
     }
 
     @Override

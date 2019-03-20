@@ -1,11 +1,11 @@
-package com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.post_models;
+package com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity;
 
 import java.util.ArrayList;
 
-public class HotelsModel{
+public class Hotel implements Entity{
 
     private int id;
-    private ArrayList<FlightsModel> flights = new ArrayList<>();
+    private ArrayList<Integer> flights = new ArrayList<>();
     private String name;
     private int price;
 
@@ -24,7 +24,7 @@ public class HotelsModel{
         return price;
     }
 
-    public ArrayList<FlightsModel> getFlights() {
+    public ArrayList<Integer> getFlights() {
         return flights;
     }
 
@@ -42,7 +42,7 @@ public class HotelsModel{
         this.price = price;
     }
 
-    public void setFlights(ArrayList<FlightsModel> flights) {
+    public void setFlights(ArrayList<Integer> flights) {
         this.flights = flights;
     }
 }

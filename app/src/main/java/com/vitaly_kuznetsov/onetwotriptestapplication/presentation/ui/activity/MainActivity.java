@@ -3,7 +3,6 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.activity;
 import android.os.Bundle;
 import android.widget.Button;
 
-
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding3.view.RxView;
@@ -15,8 +14,6 @@ import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.ISho
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.navigation.Navigator;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.controller.IShowDataController;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.controller.RecyclerViewController;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +54,8 @@ public class MainActivity extends MvpAppCompatActivity implements IShowDataView,
     }
 
     @Override
-    public void showData(ArrayList<IModel> data) {
-        controller.showData(data);
+    public void showData(IModel model) {
+        controller.showData(model);
     }
 
     @Override

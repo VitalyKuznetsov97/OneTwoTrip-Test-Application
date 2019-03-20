@@ -23,24 +23,22 @@ import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.consta
 import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.constants.PresentationConstants.VIEW_HOLDER_DESTINATION;
 import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.constants.PresentationConstants.VIEW_HOLDER_ERROR;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<IViewHolder> {
 
-    private ArrayList<IModel> data;
+    private ArrayList<IModel> data = new ArrayList<>();
 
-    public void showData(ArrayList<IModel> data){
-        this.data = data;
+    public void showData(IModel model){
+        data.add(model);
         notifyDataSetChanged();
     }
 
     public void showError(ErrorModel errorModel){
-        if (data != null && data.get(0) instanceof ErrorModel){
+        if (data == null ) data = new ArrayList<>();
+        else if (data.size() != 0 && data.get(0) instanceof ErrorModel)
             data.remove(0);
-        }
-        else {
-            data = new ArrayList<>();
-            data.add(0, errorModel);
-            notifyItemInserted(0);
-        }
+
+        data.add(0, errorModel);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -53,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public IViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (viewType == VIEW_HOLDER_DESTINATION) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_result, parent, false);
@@ -70,9 +68,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        IViewHolder viewHolder = (IViewHolder) holder;
-        viewHolder.bind(data.get(position));
+    public void onBindViewHolder(@NonNull IViewHolder holder, int position) {
+        if (data.get(position) != null)
+            holder.bind(data.get(position));
     }
 
     @Override

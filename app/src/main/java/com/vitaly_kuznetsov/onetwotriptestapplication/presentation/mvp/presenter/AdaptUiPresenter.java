@@ -6,8 +6,6 @@ import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IAda
 @InjectViewState
 public class AdaptUiPresenter extends BasePresenter<IAdaptUiView> {
 
-    public AdaptUiPresenter(){ }
-
     @Override
     public void attachView(IAdaptUiView view) {
         super.attachView(view);

@@ -1,6 +1,6 @@
-package com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.post_models;
+package com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity;
 
-public class FlightsModel {
+public class Flight implements Entity{
 
     private int id;
     private int companyId;

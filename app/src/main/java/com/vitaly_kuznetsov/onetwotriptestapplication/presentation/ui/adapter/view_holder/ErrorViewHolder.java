@@ -5,13 +5,14 @@ import android.widget.TextView;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ErrorViewHolder extends RecyclerView.ViewHolder implements IViewHolder<ErrorModel> {
+public class ErrorViewHolder extends IViewHolder {
 
     @BindView(R.id.text_view_option) TextView textViewOption;
 
@@ -20,9 +21,13 @@ public class ErrorViewHolder extends RecyclerView.ViewHolder implements IViewHol
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(ErrorModel errorModel){
-        if (errorModel != null && errorModel.getErrorMessage() != null)
-            textViewOption.setText(errorModel.getErrorMessage());
+    @Override
+    public void bind(IModel model) {
+        if (model instanceof ErrorModel) {
+            ErrorModel errorModel = (ErrorModel) model;
+            if (errorModel.getErrorMessage() != null)
+                textViewOption.setText(errorModel.getErrorMessage());
+        }
     }
 
 }

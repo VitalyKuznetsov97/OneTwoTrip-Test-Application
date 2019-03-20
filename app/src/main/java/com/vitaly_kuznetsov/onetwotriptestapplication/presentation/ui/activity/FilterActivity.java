@@ -68,8 +68,8 @@ public class FilterActivity extends MvpAppCompatActivity implements IShowDataVie
         controller.hideLoading();
     }
 
-    @Override public void showData(ArrayList<IModel> data) {
-        controller.showData(data);
+    @Override public void showData(IModel model) {
+        controller.showData(model);
     }
 
     @Override public void showError(ErrorModel errorModel) {

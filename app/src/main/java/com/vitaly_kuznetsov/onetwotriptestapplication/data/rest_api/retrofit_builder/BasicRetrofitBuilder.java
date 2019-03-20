@@ -1,10 +1,10 @@
-package com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.retrofit_builders;
+package com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.retrofit_builder;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.endpoints.Endpoints.BASE_URL;
+import static com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.endpoints.Endpoints.BASE_URL;
 
 public class BasicRetrofitBuilder {
 

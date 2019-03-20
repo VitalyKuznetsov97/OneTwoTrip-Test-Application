@@ -4,5 +4,5 @@ import io.reactivex.Observable;
 import kotlin.Unit;
 
 public interface RefreshableView {
-    public Observable<Unit> onRefreshClicked();
+    Observable<Unit> onRefreshClicked();
 }

@@ -1,8 +1,8 @@
-package com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.request_controller;
+package com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.controller;
 
-import com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.api.RestApi;
-import com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.post_models.PostModel;
-import com.vitaly_kuznetsov.onetwotriptestapplication.data.server_rest_api.retrofit_builders.BasicRetrofitBuilder;
+import com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.api.RestApi;
+import com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.post_model.PostModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.retrofit_builder.BasicRetrofitBuilder;
 
 import io.reactivex.Observable;
 import retrofit2.Retrofit;
@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
  */
 public class ApiRequestController {
 
-    protected RestApi api;
+    private RestApi api;
 
     public ApiRequestController(){
         Retrofit retrofit = BasicRetrofitBuilder.getRetrofitInstance();

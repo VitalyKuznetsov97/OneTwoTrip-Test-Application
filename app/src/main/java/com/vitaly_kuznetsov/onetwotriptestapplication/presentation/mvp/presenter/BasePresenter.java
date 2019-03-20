@@ -2,28 +2,23 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presente
 
 import com.arellomobile.mvp.MvpPresenter;
 import com.arellomobile.mvp.MvpView;
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.interactor.UseCase;
 
 import java.util.ArrayList;
 
-import io.reactivex.disposables.Disposable;
-
 abstract class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
 
-    private ArrayList<Disposable> disposables = new ArrayList<>();
+    private ArrayList<UseCase> useCases = new ArrayList<>();
 
-    void disposeOnDestroy(Disposable disposable) {
-        if (disposable!=null) disposables.add(disposable);
-    }
-    void removeFromDisposables(Disposable disposable){
-        if (disposable!=null) disposables.remove(disposable);
+    void disposeOnDestroy(UseCase useCase) {
+        if (useCases!= null && useCase!=null) useCases.add(useCase);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (disposables != null) {
-            for (Disposable disposable : disposables) disposable.dispose();
-            disposables = null;
+        if (useCases != null) {
+            for (UseCase useCase : useCases) useCase.dispose();
         }
     }
 

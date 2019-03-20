@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 /**
  * An Interface to initialize all buttons, textFields, etc.
+ * Moxy library is used for MVP.
  */
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface IAdaptUiView extends MvpView {

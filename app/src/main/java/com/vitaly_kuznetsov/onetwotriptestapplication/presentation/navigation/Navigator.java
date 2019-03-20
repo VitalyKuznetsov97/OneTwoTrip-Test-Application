@@ -16,9 +16,10 @@ public class Navigator {
     private Navigator() { }
 
     /**
-     * Goes to the user list screen.
+     * Goes to the filter screen.
      *
      * @param context A Context needed to open the destiny activity.
+     * @param intentFlag Depending on this flag Filter is chosen.
      */
     public static void navigateToFilterActivity(Context context, int intentFlag) {
         if (context != null) {

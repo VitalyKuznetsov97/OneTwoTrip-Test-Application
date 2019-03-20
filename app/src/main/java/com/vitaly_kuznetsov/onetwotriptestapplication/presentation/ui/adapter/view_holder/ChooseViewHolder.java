@@ -6,13 +6,13 @@ import android.widget.TextView;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ChooseFilterModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChooseViewHolder extends RecyclerView.ViewHolder implements IViewHolder<ChooseFilterModel> {
+public class ChooseViewHolder extends IViewHolder {
 
     @BindView(R.id.text_view_option) TextView textViewOption;
     @BindView(R.id.checkbox) CheckBox checkBox;
@@ -22,8 +22,10 @@ public class ChooseViewHolder extends RecyclerView.ViewHolder implements IViewHo
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(ChooseFilterModel chooseFilterModel){
-        if (chooseFilterModel != null) {
+    @Override
+    public void bind(IModel model) {
+        if (model instanceof ChooseFilterModel){
+            ChooseFilterModel chooseFilterModel = (ChooseFilterModel) model;
             textViewOption.setText(chooseFilterModel.getName());
             checkBox.setChecked(false);
         }

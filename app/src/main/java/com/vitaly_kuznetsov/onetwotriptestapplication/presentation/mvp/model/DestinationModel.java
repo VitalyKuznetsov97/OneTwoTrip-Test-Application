@@ -8,7 +8,7 @@ public class DestinationModel implements IModel {
 
     private int destinationId;
     private String hotelName;
-    private int amountOfOptions;
+    private String amountOfOptions;
     private int price;
 
     public int getDestinationId() { return destinationId; }
@@ -19,9 +19,9 @@ public class DestinationModel implements IModel {
 
     public void setHotelName(String hotelName) { this.hotelName = hotelName; }
 
-    public int getAmountOfOptions() { return amountOfOptions; }
+    public String getAmountOfOptions() { return amountOfOptions; }
 
-    public void setAmountOfOptions(int amountOfOptions) { this.amountOfOptions = amountOfOptions; }
+    public void setAmountOfOptions(String amountOfOptions) { this.amountOfOptions = amountOfOptions; }
 
     public int getPrice() { return price; }
 
