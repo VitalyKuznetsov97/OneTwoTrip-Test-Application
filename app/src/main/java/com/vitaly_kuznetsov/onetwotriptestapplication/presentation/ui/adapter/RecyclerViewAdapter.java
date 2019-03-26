@@ -27,8 +27,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<IViewHolder> {
 
     private ArrayList<IModel> data = new ArrayList<>();
 
-    public void showData(IModel model){
-        data.add(model);
+    public void showData(ArrayList<IModel> iModels){
+        data = iModels;
         notifyDataSetChanged();
     }
 

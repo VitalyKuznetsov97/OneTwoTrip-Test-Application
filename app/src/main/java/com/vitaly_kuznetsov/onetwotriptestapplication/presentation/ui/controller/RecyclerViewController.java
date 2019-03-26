@@ -37,8 +37,8 @@ public class RecyclerViewController implements IShowDataController {
     }
 
     @Override
-    public void showData(IModel model) {
-        adapter.showData(model);
+    public void showData(ArrayList<IModel> iModels) {
+        adapter.showData(iModels);
     }
 
     @Override

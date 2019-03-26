@@ -1,6 +1,7 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mapper
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity.*
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception.DefaultErrorBundle
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ChooseFilterModel
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.DestinationModel
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel

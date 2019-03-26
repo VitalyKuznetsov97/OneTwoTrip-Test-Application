@@ -19,6 +19,10 @@ public class ApiRequestController {
         api = retrofit.create(RestApi.class);
     }
 
+    public void finish(){
+        BasicRetrofitBuilder.disposeRetrofitInstance();
+    }
+
     public Observable<PostModel> getHotelsList(){
         return api.getHotelsList();
     }

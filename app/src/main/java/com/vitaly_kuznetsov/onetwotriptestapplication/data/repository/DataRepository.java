@@ -1,5 +1,7 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.data.repository;
 
+import com.vitaly_kuznetsov.onetwotriptestapplication.data.exception.NetworkConnectionException;
+import com.vitaly_kuznetsov.onetwotriptestapplication.data.exception.RestApiException;
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.net_connection.InternetConnection;
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.controller.ApiRequestController;
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.rest_api.post_model.PostModel;
@@ -18,7 +20,6 @@ public class DataRepository implements Repository {
 
     private ApiRequestController apiRequestController;
     private CompositeDisposable disposables;
-    private boolean netConnection;
 
     private Scheduler executionScheduler;
     private Scheduler postExecutionScheduler;
@@ -26,51 +27,60 @@ public class DataRepository implements Repository {
     private PostModel postModel;
 
     @Override
-    public boolean init(Scheduler executionScheduler, Scheduler postExecutionScheduler) {
-        apiRequestController = new ApiRequestController();
+    public void init(Scheduler executionScheduler, Scheduler postExecutionScheduler) throws Exception {
         disposables = new CompositeDisposable();
         this.executionScheduler = executionScheduler;
         this.postExecutionScheduler = postExecutionScheduler;
+
+        final boolean[] netConnection = new boolean[1];
 
         addDisposable(InternetConnection.INSTANCE.hasInternetConnection().
                 subscribeOn(executionScheduler).
                 observeOn(postExecutionScheduler).
                 subscribe(
-                b -> { netConnection = b; },
-                throwable -> {netConnection = false; throwable.printStackTrace();}));
+                b -> netConnection[0] = b,
+                throwable -> {throw new NetworkConnectionException();}));
 
-        return netConnection;
+        if (netConnection[0]) apiRequestController = new ApiRequestController();
+        else throw new NetworkConnectionException();
     }
 
     @Override
-    public ArrayList<Hotel> getHotelsList() {
+    public void clear() {
+        apiRequestController.finish();
+        dispose();
+    }
+
+    @Override
+    public ArrayList<Hotel> getHotelsList() throws Exception{
         addDisposable(apiRequestController.getHotelsList()
                 .subscribeOn(executionScheduler)
                 .observeOn(postExecutionScheduler)
-                .subscribe(result -> postModel = result, Throwable::printStackTrace));
+                .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
         return postModel.getHotels();
     }
 
     @Override
-    public ArrayList<Flight> getFlightsList() {
+    public ArrayList<Flight> getFlightsList() throws Exception{
         addDisposable(apiRequestController.getHotelsList()
                 .subscribeOn(executionScheduler)
                 .observeOn(postExecutionScheduler)
-                .subscribe(result -> postModel = result, Throwable::printStackTrace));
+                .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
         return postModel.getFlights();
     }
 
     @Override
-    public ArrayList<Company> getCompaniesList() {
+    public ArrayList<Company> getCompaniesList() throws Exception{
         addDisposable(apiRequestController.getHotelsList()
                 .subscribeOn(executionScheduler)
                 .observeOn(postExecutionScheduler)
-                .subscribe(result -> postModel = result, Throwable::printStackTrace));
+                .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
         return postModel.getCompanies();
     }
 
-    public void dispose() {
-        if (!disposables.isDisposed()) disposables.dispose(); }
+    private void dispose() {
+        if (!disposables.isDisposed()) disposables.dispose();
+    }
 
     private void addDisposable(Disposable disposable) {
         if (disposable != null) disposables.add(disposable); }

@@ -18,7 +18,12 @@ public class BasicRetrofitBuilder {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
+
         return retrofit;
+    }
+
+    public static void disposeRetrofitInstance(){
+        retrofit = null;
     }
 
 }

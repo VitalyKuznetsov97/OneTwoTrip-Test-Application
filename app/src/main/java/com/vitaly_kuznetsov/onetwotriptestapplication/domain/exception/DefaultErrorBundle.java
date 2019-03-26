@@ -3,7 +3,7 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception;
 /**
  *  Wrapper around Exceptions used to manage default errors.
  */
-public class DefaultErrorBundle implements ErrorBundle {
+public class DefaultErrorBundle extends Throwable implements ErrorBundle {
 
   private static final String DEFAULT_ERROR_MSG = "Unknown error";
 

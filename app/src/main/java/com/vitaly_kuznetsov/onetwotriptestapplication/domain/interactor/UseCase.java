@@ -1,13 +1,12 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.domain.interactor;
 
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.executor.ExecutionThread;
 import com.vitaly_kuznetsov.onetwotriptestapplication.domain.executor.PostExecutionThread;
-import com.vitaly_kuznetsov.onetwotriptestapplication.domain.executor.ThreadExecutor;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -19,51 +18,51 @@ import io.reactivex.schedulers.Schedulers;
  */
 public abstract class UseCase<T, Params> {
 
-  private final ThreadExecutor threadExecutor;
-  private final PostExecutionThread postExecutionThread;
-  private final CompositeDisposable disposables;
+    final ExecutionThread executionThread;
+    final PostExecutionThread postExecutionThread;
+    private final CompositeDisposable disposables;
 
-  UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-      this.threadExecutor = threadExecutor;
-      this.postExecutionThread = postExecutionThread;
-      this.disposables = new CompositeDisposable();
-  }
+    UseCase(ExecutionThread threadExecutor, PostExecutionThread postExecutionThread) {
+        this.executionThread = threadExecutor;
+        this.postExecutionThread = postExecutionThread;
+        this.disposables = new CompositeDisposable();
+    }
 
-  /**
-   * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
-   */
-  abstract Observable<T> buildUseCaseObservable(Params params);
+    /**
+    * Builds an {@link Observable} which will be used when executing the current {@link UseCase}.
+    */
+    abstract Observable<T> buildUseCaseObservable(Params params);
 
-  /**
-   * Executes the current use case.
-   *
-   * @param observer {@link DefaultObserver} which will be listening to the observable build
-   * by {@link #buildUseCaseObservable(Params)} ()} method.
-   * @param params Parameters (Optional) used to build/execute this use case.
-   */
-  public void execute(DefaultObserver<T> observer, Params params) {
-      if (observer != null) {
-          final Observable<T> observable = this.buildUseCaseObservable(params)
-                  .subscribeOn(Schedulers.from(threadExecutor))
+    /**
+    * Executes the current use case.
+    *
+    * @param observer {@link DefaultObserver} which will be listening to the observable build
+    * by {@link #buildUseCaseObservable(Params)} ()} method.
+    * @param params Parameters (Optional) used to build/execute this use case.
+    */
+    public void execute(DefaultObserver<T> observer, Params params) {
+        if (observer != null) {
+            final Observable<T> observable = this.buildUseCaseObservable(params)
+                  .subscribeOn(executionThread.getScheduler())
                   .observeOn(postExecutionThread.getScheduler());
-          addDisposable(observable.subscribeWith(observer));
-      }
-  }
+            addDisposable(observable.subscribeWith(observer));
+        }
+    }
 
-  /**
-   * Dispose from current {@link CompositeDisposable}.
-   */
-  public void dispose() {
-      if (!disposables.isDisposed()) {
-        disposables.dispose();
-      }
-  }
+    /**
+    * Dispose from current {@link CompositeDisposable}.
+    */
+    public void dispose() {
+        if (!disposables.isDisposed()) {
+            disposables.dispose();
+        }
+    }
 
-  /**
-   * Dispose from current {@link CompositeDisposable}.
-   */
-  private void addDisposable(Disposable disposable) {
-      if (disposable != null)
-          disposables.add(disposable);
-  }
+    /**
+    * Dispose from current {@link CompositeDisposable}.
+    */
+    private void addDisposable(Disposable disposable) {
+        if (disposable != null)
+            disposables.add(disposable);
+    }
 }

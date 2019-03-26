@@ -6,6 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 
+import java.util.ArrayList;
+
 /**
  * An Interface to show that the view is currently not available, due to some asynchronous work,
  * or to show the result of this work.
@@ -28,7 +30,7 @@ public interface IShowDataView extends MvpView {
     /**
      * Render data.
      */
-    void showData(IModel data);
+    void showData(ArrayList<IModel> iModels);
 
     /**
      * Show an error message

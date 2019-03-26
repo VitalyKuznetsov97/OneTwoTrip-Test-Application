@@ -13,8 +13,10 @@ import io.reactivex.Scheduler;
  * Interface that represents a Repository for getting {@link Entity} related data.
  */
 public interface Repository {
-    boolean init(Scheduler executionScheduler, Scheduler postExecutionScheduler);
-    ArrayList<Hotel> getHotelsList();
-    ArrayList<Flight> getFlightsList();
-    ArrayList<Company> getCompaniesList();
+    void init(Scheduler executionScheduler, Scheduler postExecutionScheduler) throws Exception;
+    void clear();
+
+    ArrayList<Hotel> getHotelsList() throws Exception;
+    ArrayList<Flight> getFlightsList() throws Exception;
+    ArrayList<Company> getCompaniesList() throws Exception;
 }

@@ -17,7 +17,7 @@ public interface IShowDataController {
     /**
      * Method that shows a dataSet in a layoutModel.
      */
-    void showData(IModel model);
+    void showData(ArrayList<IModel> iModels);
 
     /**
      * Methods that show a Loading Process.

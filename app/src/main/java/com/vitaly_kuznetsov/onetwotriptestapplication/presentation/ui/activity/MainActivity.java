@@ -9,11 +9,14 @@ import com.jakewharton.rxbinding3.view.RxView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
-import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.ShowDataPresenter;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.RefreshableShowDataPresenter;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IRefreshableView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IShowDataView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.navigation.Navigator;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.controller.IShowDataController;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.controller.RecyclerViewController;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,10 +27,10 @@ import kotlin.Unit;
 import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.constants.PresentationConstants.INTENT_FLAG_COMPANIES;
 import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.constants.PresentationConstants.INTENT_FLAG_HOTELS;
 
-public class MainActivity extends MvpAppCompatActivity implements IShowDataView, RefreshableView {
+public class MainActivity extends MvpAppCompatActivity implements IShowDataView, IRefreshableView {
 
     @InjectPresenter
-    ShowDataPresenter showDataPresenter;
+    RefreshableShowDataPresenter refreshableShowDataPresenter;
 
     private IShowDataController controller;
 
@@ -54,8 +57,8 @@ public class MainActivity extends MvpAppCompatActivity implements IShowDataView,
     }
 
     @Override
-    public void showData(IModel model) {
-        controller.showData(model);
+    public void showData(ArrayList<IModel> iModels) {
+        controller.showData(iModels);
     }
 
     @Override

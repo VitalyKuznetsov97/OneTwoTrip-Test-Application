@@ -2,36 +2,23 @@ package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presente
 
 import com.arellomobile.mvp.InjectViewState;
 import com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity.Entity;
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception.DefaultErrorBundle;
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception.ErrorBundle;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mapper.ModelMapper;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IShowDataView;
-import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.ui.activity.RefreshableView;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import java.util.ArrayList;
 
 @InjectViewState
 public class ShowDataPresenter extends BasePresenter<IShowDataView> implements IShowDataPresenter{
 
     private boolean isLoading;
-    private Disposable disposableRefreshButton;
 
     /**
      * MVP methods:
      */
-    @Override
-    public void attachView(IShowDataView view) {
-        super.attachView(view);
-        setOnRefreshButtonClickListener(view);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (disposableRefreshButton != null)
-            disposableRefreshButton.dispose();
-    }
-
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
@@ -41,10 +28,12 @@ public class ShowDataPresenter extends BasePresenter<IShowDataView> implements I
     /**
      * IShowDataPresenter methods:
      */
-
     @Override
-    public void showData(Entity entity) {
-        getViewState().showData(ModelMapper.INSTANCE.transform(entity));
+    public void showData(ArrayList<Entity> entities) {
+        ArrayList<IModel> iModels = new ArrayList<>();
+        for (Entity entity : entities) iModels.add(ModelMapper.INSTANCE.transform(entity));
+
+        getViewState().showData(iModels);
     }
 
     @Override
@@ -54,23 +43,16 @@ public class ShowDataPresenter extends BasePresenter<IShowDataView> implements I
     }
 
     @Override
-    public void showError(ErrorModel errorModel) {
+    public void showError(ErrorBundle errorBundle) {
+        ErrorModel errorModel = new ErrorModel();
+        errorModel.setErrorMessage(errorBundle.getErrorMessage());
         getViewState().showError(errorModel);
     }
 
     /**
      * Other support methods:
      */
-    private void setOnRefreshButtonClickListener(IShowDataView view){
-        if (view instanceof RefreshableView) {
-            RefreshableView refreshableView = (RefreshableView) view;
-            disposableRefreshButton = refreshableView.onRefreshClicked()
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aVoid -> refreshData(), error -> System.out.println("Error occurred! : " + error));
-        }
-    }
-
-    private void refreshData(){
+    void refreshData(){
         if (isLoading) return;
         else isLoading = true;
         getViewState().showLoading();

@@ -1,12 +1,16 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.observer;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity.Entity;
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception.DefaultErrorBundle;
+import com.vitaly_kuznetsov.onetwotriptestapplication.domain.exception.ErrorBundle;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.IShowDataPresenter;
 
+import java.util.ArrayList;
+
 import io.reactivex.observers.DisposableObserver;
 
-public class LoadDataUseCaseObserver extends DisposableObserver<Entity> {
+public class LoadDataUseCaseObserver extends DisposableObserver<ArrayList<Entity>> {
 
     private IShowDataPresenter presenter;
 
@@ -20,13 +24,11 @@ public class LoadDataUseCaseObserver extends DisposableObserver<Entity> {
 
     @Override public void onError(Throwable e) {
         presenter.onLoadingFinished();
-        ErrorModel errorModel = new ErrorModel();
-        errorModel.setErrorMessage(e.getMessage());
-        presenter.showError(errorModel);
+        presenter.showError((ErrorBundle) e);
     }
 
-    @Override public void onNext(Entity entity) {
-        presenter.showData(entity);
+    @Override public void onNext(ArrayList<Entity> entities) {
+        presenter.showData(entities);
     }
 
 }
