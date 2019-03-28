@@ -31,8 +31,7 @@ import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.consta
  */
 public class FilterActivity extends MvpAppCompatActivity implements IShowDataView, IAdaptUiView {
 
-    @InjectPresenter
-    ShowDataPresenter showDataPresenter;
+    @InjectPresenter ShowDataPresenter showDataPresenter;
     @InjectPresenter AdaptUiPresenter adaptUiPresenter;
 
     private IShowDataController controller;

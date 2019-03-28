@@ -14,7 +14,7 @@ public final class PresentationConstants {
     public static final String HOTELS_TEXT = "Hotels";
     public static final String COMPANIES_TEXT = "Companies";
     public static final String FLIGHT_OPTION_TEXT = " flight options";
-    public static final String PRICE_TEXT = "from %d RUB";
+    public static final String PRICE_TEXT = "from %.1f RUB";
 
     //View Holder Constants
     public static final int VIEW_HOLDER_DESTINATION = 0;

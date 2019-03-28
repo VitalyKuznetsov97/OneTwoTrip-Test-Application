@@ -9,7 +9,8 @@ import com.jakewharton.rxbinding3.view.RxView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.R;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.ErrorModel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.model.IModel;
-import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.RefreshableShowDataPresenter;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.RefreshableViewPresenter;
+import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter.ShowDataPresenter;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IRefreshableView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IShowDataView;
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.navigation.Navigator;
@@ -29,8 +30,8 @@ import static com.vitaly_kuznetsov.onetwotriptestapplication.presentation.consta
 
 public class MainActivity extends MvpAppCompatActivity implements IShowDataView, IRefreshableView {
 
-    @InjectPresenter
-    RefreshableShowDataPresenter refreshableShowDataPresenter;
+    @InjectPresenter ShowDataPresenter showDataPresenter;
+    @InjectPresenter RefreshableViewPresenter refreshableViewPresenter;
 
     private IShowDataController controller;
 
@@ -40,6 +41,7 @@ public class MainActivity extends MvpAppCompatActivity implements IShowDataView,
         setContentView(R.layout.activity_main);
 
         controller = new RecyclerViewController(this);
+        refreshableViewPresenter.init(showDataPresenter);
         ButterKnife.bind(this);
     }
 

@@ -1,20 +1,24 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.presenter;
 
 import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IRefreshableView;
-import com.vitaly_kuznetsov.onetwotriptestapplication.presentation.mvp.view.IShowDataView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-public class RefreshableShowDataPresenter extends ShowDataPresenter{
+public class RefreshableViewPresenter extends BasePresenter<IRefreshableView>{
 
+    private ShowDataPresenter showDataPresenter;
     private Disposable disposableRefreshButton;
+
+    public void init(ShowDataPresenter showDataPresenter){
+        this.showDataPresenter = showDataPresenter;
+    }
 
     /**
      * MVP methods:
      */
     @Override
-    public void attachView(IShowDataView view) {
+    public void attachView(IRefreshableView view) {
         super.attachView(view);
         setOnRefreshButtonClickListener(view);
     }
@@ -29,12 +33,10 @@ public class RefreshableShowDataPresenter extends ShowDataPresenter{
     /**
      * Other support methods:
      */
-    private void setOnRefreshButtonClickListener(IShowDataView view){
-        if (view instanceof IRefreshableView) {
-            IRefreshableView refreshableView = (IRefreshableView) view;
-            disposableRefreshButton = refreshableView.onRefreshClicked()
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aVoid -> refreshData(), error -> System.out.println("Error occurred! : " + error));
-        }
+    private void setOnRefreshButtonClickListener(IRefreshableView view){
+        disposableRefreshButton = view.onRefreshClicked()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(aVoid -> showDataPresenter.refreshData(), Throwable::printStackTrace);
+
     }
 }

@@ -33,9 +33,11 @@ public class DestinationViewHolder extends IViewHolder {
             DestinationModel destinationModel = (DestinationModel) model;
             textViewDestination.setText(destinationModel.getHotelName());
 
-            String string = FLIGHT_OPTION_TEXT + String.valueOf(destinationModel.getAmountOfOptions());
+            String string = String.valueOf(destinationModel.getAmountOfOptions()) + FLIGHT_OPTION_TEXT;
             textViewFlight.setText(string);
-            string = String.format(Locale.getDefault(), PRICE_TEXT, destinationModel.getPrice());
+
+            double price = destinationModel.getPrice();
+            string = String.format(Locale.getDefault(), PRICE_TEXT, price);
             textViewPrice.setText(string);
         }
     }

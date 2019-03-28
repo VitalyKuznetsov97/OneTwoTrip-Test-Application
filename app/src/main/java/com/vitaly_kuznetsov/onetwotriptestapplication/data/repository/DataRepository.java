@@ -1,5 +1,7 @@
 package com.vitaly_kuznetsov.onetwotriptestapplication.data.repository;
 
+import android.util.Log;
+
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.exception.NetworkConnectionException;
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.exception.RestApiException;
 import com.vitaly_kuznetsov.onetwotriptestapplication.data.net_connection.InternetConnection;
@@ -11,6 +13,7 @@ import com.vitaly_kuznetsov.onetwotriptestapplication.domain.entity.Hotel;
 import com.vitaly_kuznetsov.onetwotriptestapplication.domain.repository.Repository;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,60 +24,51 @@ public class DataRepository implements Repository {
     private ApiRequestController apiRequestController;
     private CompositeDisposable disposables;
 
-    private Scheduler executionScheduler;
-    private Scheduler postExecutionScheduler;
-
     private PostModel postModel;
 
     @Override
-    public void init(Scheduler executionScheduler, Scheduler postExecutionScheduler) throws Exception {
+    public void init() throws Exception {
         disposables = new CompositeDisposable();
-        this.executionScheduler = executionScheduler;
-        this.postExecutionScheduler = postExecutionScheduler;
 
-        final boolean[] netConnection = new boolean[1];
+        boolean netConnection = InternetConnection.INSTANCE.hasInternetConnection();
 
-        addDisposable(InternetConnection.INSTANCE.hasInternetConnection().
-                subscribeOn(executionScheduler).
-                observeOn(postExecutionScheduler).
-                subscribe(
-                b -> netConnection[0] = b,
-                throwable -> {throw new NetworkConnectionException();}));
-
-        if (netConnection[0]) apiRequestController = new ApiRequestController();
-        else throw new NetworkConnectionException();
+        if (netConnection && apiRequestController == null)
+            apiRequestController = new ApiRequestController();
+        else if (!netConnection) throw new NetworkConnectionException();
     }
 
     @Override
     public void clear() {
-        apiRequestController.finish();
+        if (apiRequestController != null) {
+            apiRequestController.finish();
+            apiRequestController = null;
+        }
         dispose();
     }
 
     @Override
     public ArrayList<Hotel> getHotelsList() throws Exception{
         addDisposable(apiRequestController.getHotelsList()
-                .subscribeOn(executionScheduler)
-                .observeOn(postExecutionScheduler)
-                .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
+                .subscribe(result -> postModel = result,
+                        throwable -> {throw new RestApiException();}));
+        if (postModel == null) throw new RestApiException();
         return postModel.getHotels();
     }
 
     @Override
     public ArrayList<Flight> getFlightsList() throws Exception{
-        addDisposable(apiRequestController.getHotelsList()
-                .subscribeOn(executionScheduler)
-                .observeOn(postExecutionScheduler)
-                .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
+        addDisposable(apiRequestController.getFlightsList()
+                .subscribe(result -> postModel = result,
+                        throwable -> {throw new RestApiException();}));
+        if (postModel == null) throw new RestApiException();
         return postModel.getFlights();
     }
 
     @Override
     public ArrayList<Company> getCompaniesList() throws Exception{
-        addDisposable(apiRequestController.getHotelsList()
-                .subscribeOn(executionScheduler)
-                .observeOn(postExecutionScheduler)
+        addDisposable(apiRequestController.getCompaniesList()
                 .subscribe(result -> postModel = result, throwable -> {throw new RestApiException();}));
+        if (postModel == null) throw new RestApiException();
         return postModel.getCompanies();
     }
 
